@@ -165,7 +165,9 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-
+      - name: Add GOBIN to the PATH
+        run: |
+            export GOBIN=$(go env GOPATH)/bin
       - name: Setup go tools
         run: |
           go get golang.org/x/tools/cmd/goimports
