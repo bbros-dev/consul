@@ -99,9 +99,13 @@ jobs:
           cd ui && make && cd ..
           mkdir pkg
           mv ui/packages/consul-ui/dist pkg/web_ui
+          ls
 
       - name: Build static-assets
-        run: make static-assets
+        run: |
+          pwd
+          ls
+          make static-assets
 
       - name: Build
         run: |
