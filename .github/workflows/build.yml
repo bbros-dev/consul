@@ -79,8 +79,6 @@ jobs:
       - name: Add GOBIN to the PATH
         run: |
           export GOBIN=$(go env GOPATH)/bin
-          echo "::set-env name=GOBIN::$(go env GOBIN)"
-          echo "::add-path::$(go env GOBIN)"
 
       - name: Build static-assets
         run: |
