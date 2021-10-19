@@ -65,9 +65,6 @@ jobs:
       fail-fast: true
 
     name: Go ${{ matrix.go }} ${{ matrix.goos }} ${{ matrix.goarch }} build
-#    env:
-#      GOOS: ${{ matrix.goos }}
-#      GOARCH: ${{ matrix.goarch }}
 
     steps:
       - uses: actions/checkout@v2
@@ -109,6 +106,9 @@ jobs:
           cache-dependency-path: 'ui/yarn.lock'
 
       - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
         run: |
           go mod vendor
           mkdir dist out
@@ -161,10 +161,7 @@ jobs:
       fail-fast: true
 
     name: Go ${{ matrix.go }} ${{ matrix.goos }} ${{ matrix.goarch }} build
-#
-#    env:
-#      GOOS: ${{ matrix.goos }}
-#      GOARCH: ${{ matrix.goarch }}
+
 
     steps:
       - uses: actions/checkout@v2
@@ -202,7 +199,11 @@ jobs:
         run: make static-assets
 
       - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
         run: |
+          go mod vendor
           mkdir dist out
           go build -o dist/
           zip -r -j out/${{ env.PKG_NAME }}_${{ needs.get-product-version.outputs.product-version }}_${{ matrix.goos }}_${{ matrix.goarch }}.zip dist/
@@ -255,9 +256,6 @@ jobs:
 
     name: Go ${{ matrix.go }} ${{ matrix.goos }} ${{ matrix.goarch }} build
 
-    env:
-      GOOS: ${{ matrix.goos }}
-      GOARCH: ${{ matrix.goarch }}
 
     steps:
       - uses: actions/checkout@v2
@@ -295,6 +293,9 @@ jobs:
         run: make static-assets
 
       - name: Build
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
         run: |
           mkdir dist out
           go build -o dist/
