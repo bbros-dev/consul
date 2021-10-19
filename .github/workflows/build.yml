@@ -81,12 +81,14 @@ jobs:
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
           go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
-      - name: Build UI with node and yarn
+      - name: Setup with node and yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
           cache-dependency-path: 'ui/yarn.lock'
+
+      - name: Build UI
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
@@ -165,17 +167,20 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+
       - name: Install project dependencies
         run: |
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
           go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
-      - name: Build UI with node and yarn
+      - name: Setup node and yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
           cache-dependency-path: 'ui/yarn.lock'
+
+      - name: Build UI
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
@@ -261,12 +266,14 @@ jobs:
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
           go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
-      - name: Build UI with node and yarn
+      - name: Setup node and yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
           cache-dependency-path: 'ui/yarn.lock'
+
+      - name: Build UI
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
@@ -351,12 +358,14 @@ jobs:
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
           go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
-      - name: Build UI with node and yarn
+      - name: Setup node and yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
           cache-dependency-path: 'ui/yarn.lock'
+
+      - name: Build UI
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
@@ -441,12 +450,14 @@ jobs:
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
           go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
-      - name: Build UI with node and yarn
+      - name: Setup node and yarn
         uses: actions/setup-node@v2
         with:
           node-version: '14'
           cache: 'yarn'
           cache-dependency-path: 'ui/yarn.lock'
+
+      - name: Build UI
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
