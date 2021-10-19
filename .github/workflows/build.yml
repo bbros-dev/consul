@@ -253,9 +253,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup go
-          uses: actions/setup-go@v2
-          with:
-            go-version: ${{ matrix.go }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
 
       - name: Install project dependencies
         run: |
@@ -266,8 +266,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          cache: 'yarn'
-          cache-dependency-path: 'ui/yarn.lock'
 
       - name: Build UI
         run: |
