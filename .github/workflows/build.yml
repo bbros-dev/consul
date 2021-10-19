@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        goos: [ linux, freebsd ]
+        goos: [ linux, freebsd, windows ]
         goarch: [ "386" ]
         go: [ "1.16" ]
       fail-fast: true
@@ -75,11 +75,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
-
-      - name: Install project dependencies
-        run: |
-          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
-          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
 
       - name: Setup with node and yarn
         uses: actions/setup-node@v2
@@ -103,8 +98,8 @@ jobs:
 
       - name: Build static-assets
         run: |
-          pwd
-          ls
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
           make static-assets
 
       - name: Build
