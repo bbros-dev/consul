@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        goos: [ linux, freebsd, windows ]
+        goos: [ linux, freebsd ]
         goarch: [ "386" ]
         go: [ "1.16" ]
       fail-fast: true
