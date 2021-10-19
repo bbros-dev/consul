@@ -183,7 +183,7 @@ jobs:
           go get github.com/elazarl/go-bindata-assetfs
           go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
 
-      - name: Build UI
+      #- name: Build UI
 
       - name: Install project dependencies
         run: |
