@@ -5,7 +5,7 @@ on:
     # Sequence of patterns matched against refs/heads
     branches:
       # Push events on crt-consul-migration branch
-        - crt-consul-migration
+      - build_ui
 env:
   PKG_NAME: consul
 
@@ -23,12 +23,12 @@ jobs:
         run: |
           OUTPUT=$(make -f Makefile version)
           echo $OUTPUT
-          IFS="-"; OUTPUT=$(make -f Makefile version); 
+          IFS="-"; OUTPUT=$(make -f Makefile version);
           read -a V <<< "$OUTPUT"; unset IFS;
 
           VERSION=${V[0]}
           PREREL_VERSION=${V[1]}
-          
+
           echo "::set-output name=product-version::${VERSION}-${PREREL_VERSION}"
           echo "::set-output name=pre-version::${PREREL_VERSION}"
           echo "::set-output name=pkg-version::${VERSION}"
@@ -75,6 +75,32 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+
+      - name: Install project dependencies
+        run: |
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
+      - name: Build UI with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'ui/yarn.lock'
+        run: |
+          CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
+          CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
+          CONSUL_COPYRIGHT_YEAR=$(git show -s --format=%cd --date=format:%Y HEAD)
+          echo "consul_version is ${CONSUL_VERSION}"
+          echo "consul binary type is ${CONSUL_BINARY_TYPE}"
+          echo "consul copyright year is ${CONSUL_COPYRIGHT_YEAR}"
+          cd ui && make && cd ..
+          mkdir pkg
+          mv ui/packages/consul-ui/dist pkg/web_ui
+
+      - name: Build static-assets
+        run: make static-assets
+
       - name: Build
         run: |
           mkdir dist out
@@ -139,6 +165,30 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+      - name: Install project dependencies
+        run: |
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
+      - name: Build UI with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'ui/yarn.lock'
+        run: |
+          CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
+          CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
+          CONSUL_COPYRIGHT_YEAR=$(git show -s --format=%cd --date=format:%Y HEAD)
+          echo "consul_version is ${CONSUL_VERSION}"
+          #echo "consul binary type is ${CONSUL_BINARY_TYPE}"
+          echo "consul copyright year is ${CONSUL_COPYRIGHT_YEAR}"
+          cd ui && make && cd ..
+          mkdir pkg
+          mv ui/packages/consul-ui/dist pkg/web_ui
+
+      - name: Build static-assets
+        run: make static-assets
 
       - name: Build
         run: |
@@ -206,6 +256,31 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
+      - name: Install project dependencies
+        run: |
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
+      - name: Build UI with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'ui/yarn.lock'
+        run: |
+          CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
+          CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
+          CONSUL_COPYRIGHT_YEAR=$(git show -s --format=%cd --date=format:%Y HEAD)
+          echo "consul_version is ${CONSUL_VERSION}"
+          #echo "consul binary type is ${CONSUL_BINARY_TYPE}"
+          echo "consul copyright year is ${CONSUL_COPYRIGHT_YEAR}"
+          cd ui && make && cd ..
+          mkdir pkg
+          mv ui/packages/consul-ui/dist pkg/web_ui
+
+      - name: Build static-assets
+        run: make static-assets
+
       - name: Build
         run: |
           mkdir dist out
@@ -271,6 +346,31 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
+      - name: Install project dependencies
+        run: |
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
+      - name: Build UI with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'ui/yarn.lock'
+        run: |
+          CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
+          CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
+          CONSUL_COPYRIGHT_YEAR=$(git show -s --format=%cd --date=format:%Y HEAD)
+          echo "consul_version is ${CONSUL_VERSION}"
+          #echo "consul binary type is ${CONSUL_BINARY_TYPE}"
+          echo "consul copyright year is ${CONSUL_COPYRIGHT_YEAR}"
+          cd ui && make && cd ..
+          mkdir pkg
+          mv ui/packages/consul-ui/dist pkg/web_ui
+
+      - name: Build static-assets
+        run: make static-assets
+
       - name: Build
         run: |
           mkdir dist out
@@ -335,6 +435,31 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+
+      - name: Install project dependencies
+        run: |
+          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
+      - name: Build UI with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          cache-dependency-path: 'ui/yarn.lock'
+        run: |
+          CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
+          CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
+          CONSUL_COPYRIGHT_YEAR=$(git show -s --format=%cd --date=format:%Y HEAD)
+          echo "consul_version is ${CONSUL_VERSION}"
+          #echo "consul binary type is ${CONSUL_BINARY_TYPE}"
+          echo "consul copyright year is ${CONSUL_COPYRIGHT_YEAR}"
+          cd ui && make && cd ..
+          mkdir pkg
+          mv ui/packages/consul-ui/dist pkg/web_ui
+
+      - name: Build static-assets
+        run: make static-assets
 
       - name: Build
         run: |
