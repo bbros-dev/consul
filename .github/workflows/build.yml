@@ -76,12 +76,14 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      - name: Setup with node and yarn
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'yarn'
-          cache-dependency-path: 'ui/yarn.lock'
+
+
+
+      - name: Build static-assets
+        run: |
+            go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
+            go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
+
 
       - name: Build UI
         run: |
@@ -95,12 +97,13 @@ jobs:
           mkdir pkg
           mv ui/packages/consul-ui/dist pkg/web_ui
           ls
-
-      - name: Build static-assets
-        run: |
-          go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
-          go get -u -v github.com/hashicorp/go-bindata/go-bindata@bf7910a
           make static-assets
+
+      - name: Setup with node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache-dependency-path: 'ui/yarn.lock'
 
       - name: Build
         run: |
