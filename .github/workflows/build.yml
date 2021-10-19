@@ -171,6 +171,20 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
+      - name: Add GOBIN to the PATH
+        run: |
+          export GOBIN=$(go env GOPATH)/bin
+
+      - name: Setup go tools
+        run: |
+          go get golang.org/x/tools/cmd/goimports
+          go get github.com/hashicorp/go-bindata
+          go get github.com/hashicorp/go-bindata/go-bindata
+          go get github.com/elazarl/go-bindata-assetfs
+          go get github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs
+
+      - name: Build UI
+
       - name: Install project dependencies
         run: |
           go get -u -v github.com/elazarl/go-bindata-assetfs/go-bindata-assetfs@38087fe
@@ -180,8 +194,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-          cache: 'yarn'
-          cache-dependency-path: 'ui/yarn.lock'
 
       - name: Build UI
         run: |
