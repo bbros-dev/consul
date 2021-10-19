@@ -77,8 +77,6 @@ jobs:
           go-version: ${{ matrix.go }}
 
 
-
-
       - name: Build static-assets
         run: |
             #go get github.com/elazarl/go-bindata-assetfs
@@ -89,6 +87,8 @@ jobs:
 
 
       - name: Build UI
+        env:
+           GOBIN: $(go env GOPATH)/bin
         run: |
           CONSUL_VERSION=${{ needs.get-product-version.outputs.product-version }}
           CONSUL_BINARY_TYPE=${CONSUL_BINARY_TYPE}
